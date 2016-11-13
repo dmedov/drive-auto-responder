@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e # exit script on errors
+set -e -x
 
 git clone https://github.com/dmedov/android-docker-ci.git
 cd android-docker-ci
