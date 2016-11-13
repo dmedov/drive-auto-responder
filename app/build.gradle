@@ -24,6 +24,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    androidTestCompile( 'com.android.support.test:runner:0.5', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile 'com.linkedin.testbutler:test-butler-library:1.1.0'
+
     compile 'com.android.support:appcompat-v7:24.2.1'
 
     compile 'io.reactivex:rxandroid:1.2.1'

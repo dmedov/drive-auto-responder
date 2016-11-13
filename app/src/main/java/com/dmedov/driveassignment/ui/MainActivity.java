@@ -68,16 +68,18 @@ public class MainActivity extends AppCompatActivity implements SpeedTrackerPrese
 
     @Override
     public void checkGpsSmsPermissions() {
-        Dexter.checkPermissions(new MultiplePermissionsListener() {
-            @Override
-            public void onPermissionsChecked(MultiplePermissionsReport report) {
-                // we check device admin permission to turn off screen when reach 15 km/h
-                checkDeviceAdminPermission();
-            }
+        if (!Dexter.isRequestOngoing()) {
+            Dexter.checkPermissions(new MultiplePermissionsListener() {
+                @Override
+                public void onPermissionsChecked(MultiplePermissionsReport report) {
+                    // we check device admin permission to turn off screen when reach 15 km/h
+                    checkDeviceAdminPermission();
+                }
 
-            @Override
-            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
-        }, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS);
+                @Override
+                public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+            }, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS);
+        }
     }
 
     @Override
