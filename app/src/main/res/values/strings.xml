@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DriveAssignment</string>
+    <string name="drive_mode">Drive mode</string>
+    <string name="default_driving_message">Sorry, i am driving and can\'t answer right now</string>
+    <string name="tracker_is_running">Speed tracker is running</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="gps_message">Gps is disabled, do you want to enable it?</string>
+    <string name="device_admin_activation_message">app requires device admin permission to turn off screen automatically</string>
+</resources>
