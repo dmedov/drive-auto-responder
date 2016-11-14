@@ -31,15 +31,12 @@ public class ChangeTextBehaviorTest {
 
     @Before
     public void initValidString() {
-        //TestButler.setup(InstrumentationRegistry.getTargetContext());
         testStringToBeTyped = "Simple sms response message";
     }
 
     @After
     public void after() {
-        //TestButler.teardown(InstrumentationRegistry.getTargetContext());
     }
-
 
     @Test
     public void changeText_sameActivity() {
