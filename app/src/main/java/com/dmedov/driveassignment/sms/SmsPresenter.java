@@ -14,6 +14,10 @@ public class SmsPresenter {
     }
 
     public void onMessageReceived(String from) {
+        if (from == null) {
+            return;
+        }
+        
         if (storage.isDriveModeEnabled()) {
             sender.send(from, storage.getResponseMessage());
         }
