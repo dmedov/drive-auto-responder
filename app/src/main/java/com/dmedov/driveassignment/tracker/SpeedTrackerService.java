@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -34,31 +35,10 @@ public class SpeedTrackerService extends Service {
             return START_STICKY;
         }
 
-        LocationRequest request = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(LOCATION_UPDATES_INTERVAL_MS);
+        LocationRequest request = getLocationRequest();
 
         ReactiveLocationProvider locationProvider = new ReactiveLocationProvider(getApplicationContext());
-        Subscription subscription = locationProvider.getUpdatedLocation(request)
-                                        .subscribe(new Action1<Location>() {
-                                            @Override
-                                            public void call(Location location) {
-                                                if (location != null) {
-                                                    Log.v("TrackerService", "on location determined " + location.toString());
-                                                }
-
-                                                if (location != null &&
-                                                    location.getSpeed() != 0.0 && // getSpeed() returns 0.0 if speeds is not determined
-                                                    location.getAccuracy() < MIN_ACCURACY_METERS) {
-                                                    speedObserver.onSpeedDetermined(location.getSpeed());
-                                                }
-                                            }
-                                        }, new Action1<Throwable>() {
-                                            @Override
-                                            public void call(Throwable throwable) {
-                                                Log.e("TrackerService", "can't determine speed: " + throwable.getMessage());
-                                            }
-                                        });
+        Subscription subscription = getLocationSubscription(request, locationProvider);
 
         compositeSubscription = new CompositeSubscription();
         compositeSubscription.add(subscription);
@@ -66,6 +46,36 @@ public class SpeedTrackerService extends Service {
         Log.d("TrackerService", "speed tracker started");
 
         return START_STICKY;
+    }
+
+    private Subscription getLocationSubscription(LocationRequest request, ReactiveLocationProvider locationProvider) {
+        return locationProvider.getUpdatedLocation(request)
+                                            .subscribe(new Action1<Location>() {
+                                                @Override
+                                                public void call(Location location) {
+                                                    if (location != null) {
+                                                        Log.v("TrackerService", "on location determined " + location.toString());
+                                                    }
+
+                                                    if (location != null &&
+                                                        location.getSpeed() != 0.0 && // getSpeed() returns 0.0 if speeds is not determined
+                                                        location.getAccuracy() < MIN_ACCURACY_METERS) {
+                                                        speedObserver.onSpeedDetermined(location.getSpeed());
+                                                    }
+                                                }
+                                            }, new Action1<Throwable>() {
+                                                @Override
+                                                public void call(Throwable throwable) {
+                                                    Log.e("TrackerService", "can't determine speed: " + throwable.getMessage());
+                                                }
+                                            });
+    }
+
+    @NonNull
+    private LocationRequest getLocationRequest() {
+        return LocationRequest.create()
+                              .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                              .setInterval(LOCATION_UPDATES_INTERVAL_MS);
     }
 
     @Override
