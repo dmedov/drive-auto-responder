@@ -34,7 +34,7 @@ test:
     - adb shell settings put global animator_duration_scale 0
 
   override:
-    - ./gradlew cAT -i
+    - ./gradlew cAT -i --debug
     - ./gradlew test
 
   post:
