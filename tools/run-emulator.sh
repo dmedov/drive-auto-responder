@@ -4,7 +4,7 @@ set +e +x
 
 echo "starting emulator..."
 export SHELL=/bin/bash
-echo "no" | emulator -avd test -no-audio -no-window &
+echo "no" | emulator64-arm -avd test -no-audio -no-window &
 
 echo "waiting boot of emulator..."
 android-wait-for-emulator.sh
