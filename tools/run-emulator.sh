@@ -12,7 +12,7 @@ echo 'vm.heapSize=512' >> ~/.android/avd/test.ini
 echo 'hw.ramSize=1024' >> ~/.android/avd/test.ini
 cat ~/.android/avd/test.ini
 
-echo "no" | emulator64-arm -avd test -no-audio -no-window &
+echo "no" | emulator -avd test -no-audio -no-window &
 
 echo "waiting boot of emulator..."
 android-wait-for-emulator.sh
