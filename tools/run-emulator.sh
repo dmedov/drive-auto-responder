@@ -8,6 +8,7 @@ echo "no" | emulator64-arm -avd test -no-audio -no-window &
 
 echo "waiting boot of emulator..."
 android-wait-for-emulator.sh
+sleep 30
 adb shell input keyevent 82
 adb shell svc power stayon true
 adb shell settings put global window_animation_scale 0
