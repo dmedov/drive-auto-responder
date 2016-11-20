@@ -5,6 +5,9 @@ set +e +x
 echo "starting emulator..."
 export SHELL=/bin/bash
 
+export TERM=dumb
+export ADB_INSTALL_TIMEOUT=10
+
 echo 'vm.heapSize=512' >> ~/.android/avd/test.ini
 echo 'hw.ramSize=1024' >> ~/.android/avd/test.ini
 cat ~/.android/avd/test.ini
