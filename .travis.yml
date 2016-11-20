@@ -3,4 +3,4 @@ sudo: required
 services:
   - docker
 
-script: travis_wait 20 ./package.sh
+script: travis_wait 60 ./package.sh
